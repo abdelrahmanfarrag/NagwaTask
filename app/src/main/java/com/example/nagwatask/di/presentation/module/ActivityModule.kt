@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.nagwatask.databinding.ActivityMainBinding
 import com.example.nagwatask.di.presentation.scopes.PerActivity
+import com.example.nagwatask.presentation.adapter.FilesAdapter
 import dagger.Module
 import dagger.Provides
 
@@ -19,6 +20,7 @@ class ActivityModule {
   fun providesLayoutInflater(context: Context): LayoutInflater {
     return LayoutInflater.from(context)
   }
+
 
   @Provides
   @PerActivity

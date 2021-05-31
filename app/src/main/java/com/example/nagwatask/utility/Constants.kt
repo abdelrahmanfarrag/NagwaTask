@@ -8,4 +8,8 @@ object Constants {
   object Error {
     const val EMPTY_RESPONSE_ERROR = "err"
   }
+  object FileType{
+    const val PDF = "PDF"
+    const val VIDEO = "VIDEO"
+  }
 }

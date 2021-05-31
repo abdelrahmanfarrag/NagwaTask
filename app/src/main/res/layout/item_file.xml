@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_margin="@dimen/item_file_margin"
+  app:cardCornerRadius="@dimen/item_file_margin"
+  app:cardElevation="@dimen/item_file_card_elevation"
+  app:strokeColor="@color/black"
+  app:strokeWidth="@dimen/item_file_stroke_width">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+      android:id="@+id/fileTypeImageView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/item_file_image_margin_start"
+      android:layout_marginVertical="@dimen/item_file_image_margin_vertical"
+      android:contentDescription="@null"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/ic_video" />
+
+    <androidx.constraintlayout.widget.Guideline
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent=".8"
+      android:id="@+id/fileGuideView"/>
+    <ImageView
+      android:id="@+id/fileDownloadImageView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@null"
+      app:layout_constraintStart_toEndOf="@id/fileGuideView"
+      app:layout_constraintBottom_toBottomOf="@id/fileTypeImageView"
+      app:layout_constraintTop_toTopOf="@id/fileTypeImageView"
+      app:srcCompat="@drawable/ic_download" />
+
+    <TextView
+      android:id="@+id/fileDownloadIndicatorTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/item_file_download_text_margin_end"
+      android:textColor="@color/teal_200"
+      android:textSize="@dimen/item_file_download_text_size"
+      app:layout_constraintBottom_toBottomOf="@id/fileTypeImageView"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/fileDownloadImageView"
+      app:layout_constraintTop_toTopOf="@id/fileTypeImageView"
+      tools:text="100%" />
+
+    <TextView
+      android:id="@+id/fileTitleTextView"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/item_file_text_margin_horizontal"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textColor="@color/teal_700"
+      app:layout_constraintEnd_toStartOf="@id/fileGuideView"
+      app:layout_constraintBottom_toBottomOf="@id/fileTypeImageView"
+      app:layout_constraintStart_toEndOf="@id/fileTypeImageView"
+      app:layout_constraintTop_toTopOf="@id/fileTypeImageView"
+      tools:text="Sample TitleSample  TitleSample TitleSample TitleSample TitleSample TitleSample TitleSample Title" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
