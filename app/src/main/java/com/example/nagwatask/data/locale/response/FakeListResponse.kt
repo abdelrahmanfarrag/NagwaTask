@@ -22,4 +22,12 @@ data class FakeListResponse(
     if (name != other.name) return false
     return true
   }
+
+  override fun hashCode(): Int {
+    var result = id ?: 0
+    result = 31 * result + (type?.hashCode() ?: 0)
+    result = 31 * result + (url?.hashCode() ?: 0)
+    result = 31 * result + (name?.hashCode() ?: 0)
+    return result
+  }
 }
