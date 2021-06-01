@@ -17,7 +17,7 @@ class FilesAdapter @Inject constructor() : RecyclerView.Adapter<FilesViewHolder>
 
   private var items = mutableListOf<FakeListResponse>()
 
-  private lateinit var onDownloadClicked: (View, String, Int) -> Unit
+  private lateinit var onDownloadClicked: (FakeListResponse,Int) -> Unit
 
   fun setItems(enteredItems: List<FakeListResponse>) {
     val oldList = items
@@ -35,7 +35,7 @@ class FilesAdapter @Inject constructor() : RecyclerView.Adapter<FilesViewHolder>
     return FilesViewHolder(binding, onDownloadClicked)
   }
 
-  fun setOnClicked(onDownloadClicked: (View, String, Int) -> Unit) {
+  fun setOnClicked(onDownloadClicked: (FakeListResponse,Int) -> Unit) {
     this.onDownloadClicked = onDownloadClicked
   }
 

@@ -1,3 +1,5 @@
 <resources>
   <string name="app_name">NagwaTask</string>
+  <string name="downloaded">Downloaded</string>
+  <string name="failed">Failed</string>
 </resources>

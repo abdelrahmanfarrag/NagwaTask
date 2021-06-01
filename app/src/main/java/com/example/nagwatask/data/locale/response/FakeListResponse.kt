@@ -9,7 +9,10 @@ data class FakeListResponse(
   @field:SerializedName("id") val id: Int? = null,
   @field:SerializedName("type") val type: String? = null,
   @field:SerializedName("url") val url: String? = null,
-  @field:SerializedName("name") var name: String? = null
+  @field:SerializedName("name") var name: String? = null,
+  var isDownloaded: Boolean? = false,
+  var fileUri: String? = null,
+  var failedCount: Int = 0
 ) {
   override fun equals(other: Any?): Boolean {
     if (javaClass != other?.javaClass) {

@@ -1,7 +1,7 @@
 package com.example.nagwatask.di.presentation
 
 import android.content.Context
-import com.example.nagwatask.presentation.MainActivity
+import com.example.nagwatask.presentation.main.MainActivity
 import com.example.nagwatask.di.presentation.module.ActivityModule
 import com.example.nagwatask.di.presentation.module.ActivityViewModelModule
 import com.example.nagwatask.di.presentation.scopes.PerActivity
