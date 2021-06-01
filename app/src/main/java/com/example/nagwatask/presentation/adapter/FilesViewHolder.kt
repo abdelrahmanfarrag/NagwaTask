@@ -3,7 +3,7 @@ package com.example.nagwatask.presentation.adapter
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nagwatask.R
-import com.example.nagwatask.data.remote.response.FakeListResponse
+import com.example.nagwatask.data.locale.response.FakeListResponse
 import com.example.nagwatask.databinding.ItemFileBinding
 import com.example.nagwatask.utility.Constants
 import com.example.nagwatask.utility.extension.setResourceToImageView

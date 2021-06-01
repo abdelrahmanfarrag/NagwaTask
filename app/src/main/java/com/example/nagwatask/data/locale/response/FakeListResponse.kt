@@ -1,4 +1,4 @@
-package com.example.nagwatask.data.remote.response
+package com.example.nagwatask.data.locale.response
 
 import com.google.gson.annotations.SerializedName
 
