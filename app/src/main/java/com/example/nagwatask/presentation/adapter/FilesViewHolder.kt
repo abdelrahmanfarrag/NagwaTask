@@ -24,14 +24,6 @@ class FilesViewHolder(
         layoutPosition
       )
     }
-
-    if (item.isDownloaded == true) {
-      view.fileDownloadIndicatorTextView.text = itemView.context.getString(R.string.downloaded)
-    }
-    if (item.failedCount == 3) {
-      view.fileDownloadImageView.gone()
-      view.fileDownloadIndicatorTextView.text = itemView.context.getString(R.string.failed)
-    }
     view.fileTitleTextView.text = item.name ?: "ERROR"
     when (item.type) {
       Constants.FileType.PDF -> view.fileTypeImageView.setResourceToImageView(R.drawable.ic_pdf)
