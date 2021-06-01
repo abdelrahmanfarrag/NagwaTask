@@ -24,4 +24,5 @@ class MainActivity : AppCompatActivity() {
     setContentView(mainActivityBinding.root)
   }
 
+
 }

@@ -9,5 +9,17 @@ data class FakeListResponse(
   @field:SerializedName("id") val id: Int? = null,
   @field:SerializedName("type") val type: String? = null,
   @field:SerializedName("url") val url: String? = null,
-  @field:SerializedName("name") val name: String? = null
-)
+  @field:SerializedName("name") var name: String? = null
+) {
+  override fun equals(other: Any?): Boolean {
+    if (javaClass != other?.javaClass) {
+      return false
+    }
+    other as FakeListResponse
+    if (id != other.id) return false
+    if (type != other.type) return false
+    if (url != other.url) return false
+    if (name != other.name) return false
+    return true
+  }
+}

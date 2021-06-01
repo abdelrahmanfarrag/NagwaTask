@@ -13,12 +13,16 @@ import com.example.nagwatask.utility.extension.setResourceToImageView
  */
 class FilesViewHolder(
   private val view: ItemFileBinding,
-  private var onDownloadClicked: (View, String) -> Unit
+  private var onDownloadClicked: (View, String, Int) -> Unit
 ) : RecyclerView.ViewHolder(view.root) {
 
   fun bind(item: FakeListResponse) {
     view.fileDownloadImageView.setOnClickListener {
-      onDownloadClicked.invoke(view.fileDownloadIndicatorTextView, item.name ?: "null")
+      onDownloadClicked.invoke(
+        view.fileDownloadIndicatorTextView,
+        item.name ?: "null",
+        layoutPosition
+      )
     }
 
     view.fileTitleTextView.text = item.name ?: "ERROR"
