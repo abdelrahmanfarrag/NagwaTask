@@ -4,12 +4,13 @@ import android.content.Context
 import androidx.work.Constraints
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import com.example.nagwatask.R
 import com.example.nagwatask.data.locale.response.FakeListResponse
 import com.example.nagwatask.utility.Constants.Data.SEND_DOWNLOAD_ITEM_TO_DOWNLOAD_FILE_MANAGER
 import com.example.nagwatask.utility.DownloadFileWorkManager
 import com.example.nagwatask.utility.extension.convertInputStreamToString
+import com.example.nagwatask.utility.extension.deserializeFromGson
 import com.example.nagwatask.utility.extension.serializeToGson
 import com.google.gson.Gson
 import io.reactivex.Observable
@@ -21,7 +22,6 @@ import javax.inject.Inject
 class FilesRepositoryImpl @Inject constructor(
   private val context: Context,
   private val gson: Gson,
-  private val workManager: WorkManager,
   private val constraints: Constraints,
   private val dataBuilder: Data.Builder
 ) : FilesRepository {
@@ -33,11 +33,11 @@ class FilesRepositoryImpl @Inject constructor(
     return Observable.fromArray(filesList)
   }
 
-  override fun downloadFile(item: FakeListResponse,tag:String) {
+  override fun downloadFile(item: FakeListResponse): WorkRequest {
     val oneTimeWorkerBuilder =
       OneTimeWorkRequest.Builder(DownloadFileWorkManager::class.java).setConstraints(constraints)
     dataBuilder.putString(SEND_DOWNLOAD_ITEM_TO_DOWNLOAD_FILE_MANAGER, item.serializeToGson(gson))
     oneTimeWorkerBuilder.setInputData(dataBuilder.build())
-    workManager.enqueue(oneTimeWorkerBuilder.addTag(tag).build())
+    return oneTimeWorkerBuilder.build()
   }
 }

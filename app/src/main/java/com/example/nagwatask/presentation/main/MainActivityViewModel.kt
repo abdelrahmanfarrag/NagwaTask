@@ -1,15 +1,15 @@
 package com.example.nagwatask.presentation.main
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import com.example.nagwatask.data.locale.response.FakeListResponse
 import com.example.nagwatask.data.repository.FilesRepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.UUID
 import javax.inject.Inject
 
 /**
@@ -17,17 +17,17 @@ import javax.inject.Inject
  */
 class MainActivityViewModel @Inject constructor(
   private val filesRepositoryImpl: FilesRepositoryImpl,
-  private val application: Application
+  private val workManager: WorkManager
 ) :
   ViewModel() {
 
   private var compositeDisposable = CompositeDisposable()
   private var _filesList = MutableLiveData<List<FakeListResponse>>()
-  private var _operationState = MutableLiveData<UUID>()
 
   val filesLit: LiveData<List<FakeListResponse>>
     get() = _filesList
 
+  var operationState: LiveData<WorkInfo>? = null
 
   fun loadFilesList() {
     compositeDisposable.add(
@@ -40,6 +40,12 @@ class MainActivityViewModel @Inject constructor(
     )
   }
 
+  fun postOperationUpdateToView(item: FakeListResponse) {
+    val workRequest = filesRepositoryImpl.downloadFile(item)
+    val id = workRequest.id
+    workManager.enqueue(workRequest)
+    operationState = workManager.getWorkInfoByIdLiveData(id)
+  }
 
   override fun onCleared() {
     if (!compositeDisposable.isDisposed) compositeDisposable.dispose()

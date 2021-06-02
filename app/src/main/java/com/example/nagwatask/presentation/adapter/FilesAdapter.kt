@@ -1,8 +1,10 @@
 package com.example.nagwatask.presentation.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nagwatask.data.locale.response.FakeListResponse
@@ -15,50 +17,35 @@ import javax.inject.Inject
 @Suppress("ReplaceCallWithBinaryOperator")
 class FilesAdapter @Inject constructor() : RecyclerView.Adapter<FilesViewHolder>() {
 
-  private var items = mutableListOf<FakeListResponse>()
+  private lateinit var onDownloadClicked: (FakeListResponse) -> Unit
+  private lateinit var onViewVideoClicked: (String?) -> Unit
 
-  private lateinit var onDownloadClicked: (FakeListResponse,Int) -> Unit
+  private val diffCallback = object : DiffUtil.ItemCallback<FakeListResponse>() {
+    override fun areItemsTheSame(oldItem: FakeListResponse, newItem: FakeListResponse): Boolean {
+      return oldItem.id == newItem.id
+    }
 
-  fun setItems(enteredItems: List<FakeListResponse>) {
-    val oldList = items
-    val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(
-      FilesDiffCallback(oldList, enteredItems)
-    )
-    items = enteredItems.toMutableList()
-    diffResult.dispatchUpdatesTo(this)
+    override fun areContentsTheSame(oldItem: FakeListResponse, newItem: FakeListResponse): Boolean {
+      return oldItem.equals(newItem)
+    }
   }
-
-  fun getItemAtPosition(position: Int) = items[position]
-
+  val differ = AsyncListDiffer(this, diffCallback)
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilesViewHolder {
     val binding = ItemFileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    return FilesViewHolder(binding, onDownloadClicked)
+    return FilesViewHolder(binding, onDownloadClicked, onViewVideoClicked)
   }
 
-  fun setOnClicked(onDownloadClicked: (FakeListResponse,Int) -> Unit) {
+  fun setOnClicked(onDownloadClicked: (FakeListResponse) -> Unit) {
     this.onDownloadClicked = onDownloadClicked
   }
 
-  override fun getItemCount() = items.size
-
-  override fun onBindViewHolder(holder: FilesViewHolder, position: Int) {
-    holder.bind(items[position])
+  fun setOnViewVideoClicked(onViewVideoClick: (String?) -> Unit) {
+    this.onViewVideoClicked = onViewVideoClick
   }
 
-  class FilesDiffCallback(
-    var oldFilesList: List<FakeListResponse>,
-    var newFilesList: List<FakeListResponse>
-  ) : DiffUtil.Callback() {
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-      return oldFilesList[oldItemPosition].id == newFilesList[newItemPosition].id
-    }
+  override fun getItemCount() = differ.currentList.size
 
-    override fun getOldListSize() = oldFilesList.size
-
-    override fun getNewListSize() = newFilesList.size
-
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-      return oldFilesList[oldItemPosition].equals(newFilesList[newItemPosition])
-    }
+  override fun onBindViewHolder(holder: FilesViewHolder, position: Int) {
+    holder.bind(differ.currentList[position])
   }
 }
