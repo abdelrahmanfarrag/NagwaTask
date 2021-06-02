@@ -12,11 +12,6 @@ import com.example.nagwatask.R
 /**
  * Authored by Abdelrahman Ahmed on 31 May, 2021.
  */
-fun ViewGroup.inflate(
-  layoutId: Int,
-  attachToRoot: Boolean = false
-): View = LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
-
 fun View.visible() {
   visibility = View.VISIBLE
 }

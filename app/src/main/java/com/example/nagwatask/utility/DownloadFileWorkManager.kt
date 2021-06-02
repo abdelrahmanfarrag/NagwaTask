@@ -2,10 +2,10 @@ package com.example.nagwatask.utility
 
 import android.content.Context
 import android.os.Environment
+import androidx.work.CoroutineWorker
 import androidx.work.Data
-import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.example.nagwatask.data.locale.response.FakeListResponse
+import com.example.nagwatask.domain.model.FilesResponse
 import com.example.nagwatask.utility.Constants.Data.SEND_DOWNLOAD_ITEM_TO_DOWNLOAD_FILE_MANAGER
 import com.example.nagwatask.utility.Constants.Data.SEND_RESULTED_ITEM_VIEW_TO_UPDATE
 import com.example.nagwatask.utility.Constants.Error.EMPTY_FIELD_ERROR
@@ -28,11 +28,11 @@ class DownloadFileWorkManager(
   context: Context,
   workParams: WorkerParameters
 ) :
-  Worker(context, workParams) {
+  CoroutineWorker(context, workParams) {
 
-  private lateinit var item: FakeListResponse
+  private lateinit var item: FilesResponse
 
-  override fun doWork(): Result {
+  override suspend fun doWork(): Result {
     val inData = this.inputData.getString(SEND_DOWNLOAD_ITEM_TO_DOWNLOAD_FILE_MANAGER) ?: ""
     val data = Data.Builder()
     return try {
@@ -41,6 +41,7 @@ class DownloadFileWorkManager(
       data.putString(SEND_RESULTED_ITEM_VIEW_TO_UPDATE, item.serializeToGson(Gson()))
       Result.success(data.build())
     } catch (e: Exception) {
+      item.failedCount += 1
       data.putString(SEND_RESULTED_ITEM_VIEW_TO_UPDATE, item.serializeToGson(Gson()))
       Result.failure(data.build())
     }

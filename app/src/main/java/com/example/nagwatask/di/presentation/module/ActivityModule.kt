@@ -2,10 +2,12 @@ package com.example.nagwatask.di.presentation.module
 
 import android.content.Context
 import android.view.LayoutInflater
+import com.example.nagwatask.data.repository.DownloadRepositoryImpl
 import com.example.nagwatask.data.repository.FilesRepositoryImpl
 import com.example.nagwatask.databinding.ActivityMainBinding
 import com.example.nagwatask.di.presentation.scopes.PerActivity
-import com.example.nagwatask.data.repository.FilesRepository
+import com.example.nagwatask.domain.repository.DownloadRepository
+import com.example.nagwatask.domain.repository.FilesRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -32,5 +34,9 @@ abstract class ActivityModule {
   @Binds
   @PerActivity
   abstract fun bindsFilesRepositoryImpl(filesRepositoryImpl: FilesRepositoryImpl): FilesRepository
+
+  @Binds
+  @PerActivity
+  abstract fun bindsDownloadRepositoryImp(downloadRepositoryImpl: DownloadRepositoryImpl):DownloadRepository
 
 }

@@ -29,3 +29,7 @@ fun String.getFileUri(context: Context): Uri? {
     BuildConfig.APPLICATION_ID + ".provider", file
   )
 }
+
+fun String.startDownloadAFileFromALink() {
+
+}

@@ -7,7 +7,7 @@ import android.app.DownloadManager.Request
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
-import com.example.nagwatask.data.locale.response.FakeListResponse
+import com.example.nagwatask.domain.model.FilesResponse
 import com.example.nagwatask.utility.extension.getMimeType
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,29 +21,29 @@ import java.util.Locale
 @SuppressLint("CheckResult")
 object DownloadFile {
  fun startDownloadFile(
-    fakeListResponse: FakeListResponse,
-    context: Context,
-    afterDownloadCompletedOrFailed: (String?, Boolean) -> Unit
+   filesResponse: FilesResponse,
+   context: Context,
+   afterDownloadCompletedOrFailed: (String?, Boolean) -> Unit
   ) {
     var manager: DownloadManager? = null
     Completable.fromCallable {
-      val request = Request(Uri.parse(fakeListResponse.url))
+      val request = Request(Uri.parse(filesResponse.url))
       request.apply {
         setDescription(
-          "Download .. ${fakeListResponse.name}.${fakeListResponse.type?.toLowerCase(
+          "Download .. ${filesResponse.name}.${filesResponse.type?.toLowerCase(
             Locale.ENGLISH
           )}"
         )
         setTitle(
-          "${fakeListResponse.name}.${fakeListResponse.type?.toLowerCase(
+          "${filesResponse.name}.${filesResponse.type?.toLowerCase(
             Locale.ENGLISH
           )}"
         )
-        setMimeType(fakeListResponse.url?.getMimeType())
+        setMimeType(filesResponse.url?.getMimeType())
         setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
         setDestinationInExternalPublicDir(
           Environment.DIRECTORY_DOWNLOADS,
-          "/${fakeListResponse.name}.${fakeListResponse.type?.toLowerCase(Locale.ENGLISH)}"
+          "/${filesResponse.name}.${filesResponse.type?.toLowerCase(Locale.ENGLISH)}"
         )
         setAllowedOverMetered(true)
         setAllowedOverRoaming(true)

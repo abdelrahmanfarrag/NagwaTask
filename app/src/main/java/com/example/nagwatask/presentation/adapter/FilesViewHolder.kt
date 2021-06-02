@@ -1,9 +1,8 @@
 package com.example.nagwatask.presentation.adapter
 
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nagwatask.R
-import com.example.nagwatask.data.locale.response.FakeListResponse
+import com.example.nagwatask.domain.model.FilesResponse
 import com.example.nagwatask.databinding.ItemFileBinding
 import com.example.nagwatask.utility.Constants
 import com.example.nagwatask.utility.extension.gone
@@ -15,21 +14,19 @@ import com.example.nagwatask.utility.extension.setResourceToImageView
 
 class FilesViewHolder(
   private val view: ItemFileBinding,
-  private var onDownloadClicked: (FakeListResponse) -> Unit,
+  private var onDownloadClicked: (FilesResponse) -> Unit,
   private var onViewVideoClicked: (String?) -> Unit
 ) : RecyclerView.ViewHolder(view.root) {
 
-  fun bind(item: FakeListResponse) {
+  fun bind(item: FilesResponse) {
     view.fileDownloadImageView.setOnClickListener {
       onDownloadClicked.invoke(item)
     }
     view.root.setOnClickListener {
-      if (item.failedCount < 3) {
         if (item.fileUri.isNotEmpty())
           onViewVideoClicked.invoke(item.fileUri)
         else
           onDownloadClicked.invoke(item)
-      }
     }
     if (item.isDownloaded) {
       view.fileDownloadImageView.gone()

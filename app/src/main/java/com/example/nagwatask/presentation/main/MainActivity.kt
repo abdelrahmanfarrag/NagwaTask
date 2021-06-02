@@ -5,18 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.work.WorkInfo
-import androidx.work.WorkManager
 import com.example.nagwatask.NagwaApplication
-import com.example.nagwatask.data.locale.response.FakeListResponse
 import com.example.nagwatask.databinding.ActivityMainBinding
 import com.example.nagwatask.di.presentation.ActivitySubComponent
 import com.example.nagwatask.di.presentation.viewmodel.ViewModelFactoryProvider
 import com.example.nagwatask.presentation.adapter.FilesAdapter
 import com.example.nagwatask.utility.Constants
 import com.example.nagwatask.utility.extension.createChooserIntent
-import com.example.nagwatask.utility.extension.deserializeFromGson
 import com.example.nagwatask.utility.extension.getFileUri
-import com.google.gson.Gson
 import javax.inject.Inject
 
 
@@ -25,9 +21,6 @@ class MainActivity : AppCompatActivity() {
   @Inject lateinit var mainActivityBinding: ActivityMainBinding
   @Inject lateinit var filesAdapter: FilesAdapter
   @Inject lateinit var factoryProvider: ViewModelFactoryProvider
-  @Inject lateinit var gson: Gson
-  @Inject lateinit var workManager: WorkManager
-  private var downloadedFilesList = mutableListOf<FakeListResponse>()
 
   private val mainViewModel by lazy {
     ViewModelProvider(this, factoryProvider).get(MainActivityViewModel::class.java)
@@ -46,25 +39,23 @@ class MainActivity : AppCompatActivity() {
     updateUI()
   }
 
-  private fun observeWorkManager(item: FakeListResponse) {
+  private fun observeWorkManager() {
     mainViewModel.operationState?.let { workInfo ->
       workInfo.observe(this, Observer { info ->
         when {
           info.state == WorkInfo.State.RUNNING -> {
           }
           info.state == WorkInfo.State.FAILED -> {
-            filesAdapter.differ.submitList(downloadedFilesList)
+            val outputData =
+              info.outputData.getString(Constants.Data.SEND_RESULTED_ITEM_VIEW_TO_UPDATE)
+                ?: ""
+            filesAdapter.searchAndUpdateItem(outputData)
           }
           info.state.isFinished -> {
             val outputData =
               info.outputData.getString(Constants.Data.SEND_RESULTED_ITEM_VIEW_TO_UPDATE)
                 ?: ""
-//            val updateFakeObject = outputData.deserializeFromGson(gson)
-//            downloadedFilesList.find { it.id == item.id }?.apply {
-//              this.fileUri = updateFakeObject.fileUri
-//              this.isDownloaded = updateFakeObject.isDownloaded
-//            }
-            filesAdapter.differ.submitList(downloadedFilesList)
+            filesAdapter.searchAndUpdateItem(outputData)
           }
           else -> {
           }
@@ -73,19 +64,17 @@ class MainActivity : AppCompatActivity() {
     }
   }
 
-
   private fun updateUI() {
     mainViewModel.filesLit.observe(this, Observer { filesList ->
-      downloadedFilesList.addAll(filesList)
-      filesAdapter.differ.submitList(downloadedFilesList)
       filesAdapter.setOnClicked { item ->
-        mainViewModel.postOperationUpdateToView(item)
-        observeWorkManager(item)
+          mainViewModel.postOperationUpdateToView(item)
+        observeWorkManager()
       }
       filesAdapter.setOnViewVideoClicked { uri ->
         createChooserIntent(uri?.getFileUri(this))
       }
       mainActivityBinding.fileRV.adapter = filesAdapter
+      filesAdapter.setItems(filesList)
     })
   }
 }
