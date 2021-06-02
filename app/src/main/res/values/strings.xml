@@ -3,4 +3,7 @@
   <string name="downloaded">Downloaded</string>
   <string name="failed">Failed</string>
   <string name="no_app_to_view">There is no app to preview the selected action</string>
+  <string name="downloading">Downloading…</string>
+  <string name="retry">Retry</string>
+  <string name="open_with">Open with</string>
 </resources>

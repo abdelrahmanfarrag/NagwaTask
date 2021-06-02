@@ -2,6 +2,7 @@ plugins {
   id 'com.android.application'
   id 'kotlin-android'
   id 'kotlin-kapt'
+  id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -69,4 +70,10 @@ dependencies {
   //WorkManager
   def work_manager_version = '2.5.0'
   implementation("androidx.work:work-runtime-ktx:$work_manager_version")
+
+  //NavigationComponent
+  def nav_version = "2.3.5"
+  implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+  implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
 }

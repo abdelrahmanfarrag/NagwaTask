@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  android:animateLayoutChanges="true"
   android:layout_margin="@dimen/item_file_margin"
   app:cardCornerRadius="@dimen/item_file_margin"
   app:cardElevation="@dimen/item_file_card_elevation"
@@ -32,13 +33,14 @@
       android:orientation="vertical"
       app:layout_constraintGuide_percent=".8"
       android:id="@+id/fileGuideView"/>
+
     <ImageView
       android:id="@+id/fileDownloadImageView"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:contentDescription="@null"
-      app:layout_constraintStart_toEndOf="@id/fileGuideView"
       app:layout_constraintBottom_toBottomOf="@id/fileTypeImageView"
+      app:layout_constraintEnd_toStartOf="@+id/fileDownloadIndicatorTextView"
       app:layout_constraintTop_toTopOf="@id/fileTypeImageView"
       app:srcCompat="@drawable/ic_download" />
 
@@ -51,7 +53,6 @@
       android:textSize="@dimen/item_file_download_text_size"
       app:layout_constraintBottom_toBottomOf="@id/fileTypeImageView"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/fileDownloadImageView"
       app:layout_constraintTop_toTopOf="@id/fileTypeImageView"
       tools:text="100%" />
 

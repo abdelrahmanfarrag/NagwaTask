@@ -1,4 +1,4 @@
-package com.example.nagwatask.presentation.adapter
+package com.example.nagwatask.presentation.file.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,14 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nagwatask.domain.model.FilesResponse
 import com.example.nagwatask.databinding.ItemFileBinding
-import com.example.nagwatask.utility.extension.deserializeFromGson
-import com.google.gson.Gson
 import javax.inject.Inject
 
 /**
  * Authored by Abdelrahman Ahmed on 31 May, 2021.
  */
-class FilesAdapter @Inject constructor(private val gson: Gson) :
+class FilesAdapter @Inject constructor() :
   RecyclerView.Adapter<FilesViewHolder>() {
 
   private lateinit var onDownloadClicked: (FilesResponse) -> Unit
@@ -28,7 +26,7 @@ class FilesAdapter @Inject constructor(private val gson: Gson) :
       return oldItem == newItem
     }
   }
-  private val differ = AsyncListDiffer(this, diffCallback)
+   val differ = AsyncListDiffer(this, diffCallback)
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilesViewHolder {
     val binding = ItemFileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -50,16 +48,7 @@ class FilesAdapter @Inject constructor(private val gson: Gson) :
   }
 
 
-  fun setItems(filesList: List<FilesResponse>) {
+  fun setItems(filesList: List<FilesResponse?>) {
     differ.submitList(filesList)
-  }
-
-  fun searchAndUpdateItem(outputData: String) {
-    val fakeListResponse = outputData.deserializeFromGson(gson)
-    differ.currentList.find { it.id == fakeListResponse.id }?.let { resultedItem ->
-      resultedItem.isDownloaded = fakeListResponse.isDownloaded
-      resultedItem.fileUri = fakeListResponse.fileUri
-      resultedItem.failedCount = fakeListResponse.failedCount
-    }
   }
 }

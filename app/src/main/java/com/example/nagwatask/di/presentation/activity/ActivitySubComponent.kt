@@ -1,9 +1,9 @@
-package com.example.nagwatask.di.presentation
+package com.example.nagwatask.di.presentation.activity
 
 import android.content.Context
-import com.example.nagwatask.presentation.main.MainActivity
-import com.example.nagwatask.di.presentation.module.ActivityModule
-import com.example.nagwatask.di.presentation.module.ActivityViewModelModule
+import com.example.nagwatask.presentation.file.FileActivity
+import com.example.nagwatask.di.presentation.activity.module.ActivityModule
+import com.example.nagwatask.di.presentation.activity.module.ActivityViewModelModule
 import com.example.nagwatask.di.presentation.scopes.PerActivity
 import dagger.BindsInstance
 import dagger.Subcomponent
@@ -15,7 +15,7 @@ import dagger.Subcomponent
 @Subcomponent(modules = [ActivityViewModelModule::class, ActivityModule::class])
 interface ActivitySubComponent {
 
-  fun inject(mainActivity: MainActivity)
+  fun inject(fileActivity: FileActivity)
 
   @Subcomponent.Builder
   interface Builder {

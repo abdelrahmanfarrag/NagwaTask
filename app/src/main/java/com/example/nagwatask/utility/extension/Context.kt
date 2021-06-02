@@ -1,7 +1,6 @@
 package com.example.nagwatask.utility.extension
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
@@ -18,7 +17,8 @@ fun Activity.createChooserIntent(uri: Uri?) {
       Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
     )
     if (this.resolveActivity(packageManager) != null) {
-      val intentChooser = Intent.createChooser(this, "Choose App")
+      val intentChooser =
+        Intent.createChooser(this, this@createChooserIntent.getString(R.string.open_with))
       this@createChooserIntent.startActivity(intentChooser)
     } else {
       Toast.makeText(

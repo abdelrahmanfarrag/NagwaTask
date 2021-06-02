@@ -2,7 +2,8 @@ package com.example.nagwatask.di.application
 
 import android.app.Application
 import com.example.nagwatask.di.application.scope.ApplicationScope
-import com.example.nagwatask.di.presentation.ActivitySubComponent
+import com.example.nagwatask.di.presentation.activity.ActivitySubComponent
+import com.example.nagwatask.di.presentation.fragment.FragmentSubComponent
 import dagger.BindsInstance
 import dagger.Component
 
@@ -14,6 +15,8 @@ import dagger.Component
 interface AppComponent {
 
   fun getActivitySubComponent(): ActivitySubComponent.Builder
+
+  fun getFragmentSubComponent(): FragmentSubComponent.Builder
 
   @Component.Builder
   interface Builder {

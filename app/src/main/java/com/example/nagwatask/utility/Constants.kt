@@ -20,5 +20,6 @@ object Constants {
   object Data {
     const val SEND_DOWNLOAD_ITEM_TO_DOWNLOAD_FILE_MANAGER = "download_item"
     const val SEND_RESULTED_ITEM_VIEW_TO_UPDATE = "downloaded_item"
+    const val PROGRESS = "progress"
   }
 }
