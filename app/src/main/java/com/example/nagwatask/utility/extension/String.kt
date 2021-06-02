@@ -10,8 +10,6 @@ import java.util.Objects
 
 /**
  * Authored by Abdelrahman Ahmed on 01 Jun, 2021.
- * Contact: afarrag@youxel.com
- * by :YOUXEL
  */
 fun String.getMimeType(): String? {
   var type: String? = null
@@ -28,8 +26,4 @@ fun String.getFileUri(context: Context): Uri? {
     Objects.requireNonNull(context),
     BuildConfig.APPLICATION_ID + ".provider", file
   )
-}
-
-fun String.startDownloadAFileFromALink() {
-
 }

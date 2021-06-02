@@ -64,7 +64,6 @@ class FilesViewModel @Inject constructor(
       workManager.enqueue(workRequest)
       operationState = workManager.getWorkInfoByIdLiveData(id)
     }
-
   }
 
   fun updateFilesList(

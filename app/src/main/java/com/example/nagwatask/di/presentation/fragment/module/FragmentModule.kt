@@ -12,8 +12,6 @@ import dagger.Provides
 
 /**
  * Authored by Abdelrahman Ahmed on 03 Jun, 2021.
- * Contact: afarrag@youxel.com
- * by :YOUXEL
  */
 @Module
 abstract class FragmentModule {
