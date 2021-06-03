@@ -1,4 +1,4 @@
-package com.example.nagwatask.presentation.file.adapter
+package com.example.nagwatask.presentation.file.fragment.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nagwatask.R

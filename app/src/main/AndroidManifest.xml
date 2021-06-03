@@ -10,7 +10,8 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/Theme.NagwaTask">
-    <activity android:name=".presentation.file.FileActivity">
+    <activity android:name=".presentation.file.FileActivity"
+      android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
