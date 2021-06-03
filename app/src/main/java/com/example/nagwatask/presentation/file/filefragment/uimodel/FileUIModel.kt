@@ -1,4 +1,4 @@
-package com.example.nagwatask.presentation.file.uimodel
+package com.example.nagwatask.presentation.file.filefragment.uimodel
 
 /**
  * Authored by Abdelrahman Ahmed on 03 Jun, 2021.

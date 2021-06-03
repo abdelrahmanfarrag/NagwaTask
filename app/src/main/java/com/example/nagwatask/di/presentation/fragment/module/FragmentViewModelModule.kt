@@ -3,7 +3,7 @@ package com.example.nagwatask.di.presentation.fragment.module
 import androidx.lifecycle.ViewModel
 import com.example.nagwatask.di.presentation.scopes.ViewModelKey
 import com.example.nagwatask.di.presentation.viewmodel.ViewModelProviderModule
-import com.example.nagwatask.presentation.file.fragment.FilesViewModel
+import com.example.nagwatask.presentation.file.filefragment.FilesViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

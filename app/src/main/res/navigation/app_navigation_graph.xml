@@ -6,7 +6,7 @@
   app:startDestination="@id/filesFragment">
   <fragment
     android:id="@+id/filesFragment"
-    android:name="com.example.nagwatask.presentation.file.fragment.FilesFragment"
+    android:name="com.example.nagwatask.presentation.file.filefragment.FilesFragment"
     android:label="fragment_files"
     tools:layout="@layout/fragment_files" />
 </navigation>

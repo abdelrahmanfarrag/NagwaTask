@@ -1,4 +1,4 @@
-package com.example.nagwatask.presentation.file.fragment.adapter
+package com.example.nagwatask.presentation.file.filefragment.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nagwatask.databinding.ItemFileBinding
-import com.example.nagwatask.presentation.file.uimodel.FileUIModel
+import com.example.nagwatask.presentation.file.filefragment.uimodel.FileUIModel
 import javax.inject.Inject
 
 /**

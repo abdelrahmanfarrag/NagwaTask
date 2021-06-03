@@ -1,13 +1,10 @@
-package com.example.nagwatask.presentation.file.fragment.adapter
+package com.example.nagwatask.presentation.file.filefragment.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nagwatask.R
 import com.example.nagwatask.databinding.ItemFileBinding
-import com.example.nagwatask.presentation.file.uimodel.FileUIModel
+import com.example.nagwatask.presentation.file.filefragment.uimodel.FileUIModel
 import com.example.nagwatask.utility.Constants
-import com.example.nagwatask.utility.extension.invisible
-import com.example.nagwatask.utility.extension.setResourceToImageView
-import com.example.nagwatask.utility.extension.visible
 
 /**
  * Authored by Abdelrahman Ahmed on 31 May, 2021.

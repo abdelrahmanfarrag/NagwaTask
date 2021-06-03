@@ -1,4 +1,4 @@
-package com.example.nagwatask.presentation.file.fragment
+package com.example.nagwatask.presentation.file.filefragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,8 +9,8 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.example.nagwatask.domain.usecase.FilesUseCase
-import com.example.nagwatask.presentation.file.uimodel.FileUIModel
-import com.example.nagwatask.presentation.file.uimodel.toUIModel
+import com.example.nagwatask.presentation.file.filefragment.uimodel.FileUIModel
+import com.example.nagwatask.presentation.file.filefragment.uimodel.toUIModel
 import com.example.nagwatask.utility.Constants
 import com.example.nagwatask.utility.DownloadFileWorkManager
 import com.example.nagwatask.utility.extension.deserializeFromGson

@@ -6,7 +6,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
-import com.example.nagwatask.presentation.file.uimodel.FileUIModel
+import com.example.nagwatask.presentation.file.filefragment.uimodel.FileUIModel
 import com.example.nagwatask.utility.Constants.Data.PROGRESS
 import com.example.nagwatask.utility.Constants.Data.SEND_DOWNLOAD_ITEM_TO_DOWNLOAD_FILE_MANAGER
 import com.example.nagwatask.utility.Constants.Data.SEND_RESULTED_ITEM_VIEW_TO_UPDATE

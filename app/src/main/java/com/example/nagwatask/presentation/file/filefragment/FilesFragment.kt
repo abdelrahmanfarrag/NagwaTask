@@ -1,4 +1,4 @@
-package com.example.nagwatask.presentation.file.fragment
+package com.example.nagwatask.presentation.file.filefragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import com.example.nagwatask.NagwaApplication
 import com.example.nagwatask.databinding.FragmentFilesBinding
 import com.example.nagwatask.di.presentation.fragment.FragmentSubComponent
 import com.example.nagwatask.di.presentation.viewmodel.ViewModelFactoryProvider
-import com.example.nagwatask.presentation.file.fragment.adapter.FilesAdapter
+import com.example.nagwatask.presentation.file.filefragment.adapter.FilesAdapter
 import com.example.nagwatask.utility.Constants
 import com.example.nagwatask.utility.extension.createChooserIntent
 import com.example.nagwatask.utility.extension.getFileUri

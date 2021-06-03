@@ -4,7 +4,7 @@ import android.content.Context
 import com.example.nagwatask.di.presentation.fragment.module.FragmentModule
 import com.example.nagwatask.di.presentation.fragment.module.FragmentViewModelModule
 import com.example.nagwatask.di.presentation.scopes.PerFragment
-import com.example.nagwatask.presentation.file.fragment.FilesFragment
+import com.example.nagwatask.presentation.file.filefragment.FilesFragment
 import dagger.BindsInstance
 import dagger.Subcomponent
 
