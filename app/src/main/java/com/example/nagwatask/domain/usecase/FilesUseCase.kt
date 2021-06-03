@@ -1,6 +1,8 @@
 package com.example.nagwatask.domain.usecase
 
+import com.example.nagwatask.domain.entity.FileEntity
 import com.example.nagwatask.domain.repository.FilesRepository
+import io.reactivex.Single
 import javax.inject.Inject
 
 /**
@@ -8,5 +10,5 @@ import javax.inject.Inject
  */
 class FilesUseCase @Inject constructor(private val filesRepository: FilesRepository) {
 
-  fun getFiles() = filesRepository.getFilesList()
+  fun getFiles(): Single<List<FileEntity>> = filesRepository.getFilesList()
 }

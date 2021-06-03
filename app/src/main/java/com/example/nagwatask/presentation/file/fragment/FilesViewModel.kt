@@ -8,8 +8,10 @@ import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
-import com.example.nagwatask.domain.model.FilesResponse
+import com.example.nagwatask.data.model.FilesResponse
 import com.example.nagwatask.domain.usecase.FilesUseCase
+import com.example.nagwatask.presentation.uimodel.FileUIModel
+import com.example.nagwatask.presentation.uimodel.toUIModel
 import com.example.nagwatask.utility.Constants
 import com.example.nagwatask.utility.DownloadFileWorkManager
 import com.example.nagwatask.utility.extension.deserializeFromGson
@@ -29,13 +31,12 @@ class FilesViewModel @Inject constructor(
   private val gson: Gson,
   private val constraints: Constraints,
   private val dataBuilder: Data.Builder
-) :
-  ViewModel() {
+) : ViewModel() {
 
   private var compositeDisposable = CompositeDisposable()
-  private var _filesList = MutableLiveData<List<FilesResponse>>()
+  private var _filesList = MutableLiveData<List<FileUIModel>>()
 
-  val filesLit: LiveData<List<FilesResponse>>
+  val filesList: LiveData<List<FileUIModel>>
     get() = _filesList
 
   var operationState: LiveData<WorkInfo>? = null
@@ -46,20 +47,25 @@ class FilesViewModel @Inject constructor(
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({
-          _filesList.value = it
-        }, {})
+          _filesList.value = it.map { fileEntity ->
+            fileEntity.toUIModel()
+          }
+        }, {
+          it.printStackTrace()
+        })
     )
   }
 
-  fun postOperationUpdateToView(item: FilesResponse) {
+  fun postOperationUpdateToView(item: FileUIModel) {
     if (item.failedCount < 3) {
       val oneTimeWorkerBuilder =
         OneTimeWorkRequest.Builder(DownloadFileWorkManager::class.java).setConstraints(constraints)
       dataBuilder.putString(
-        Constants.Data.SEND_DOWNLOAD_ITEM_TO_DOWNLOAD_FILE_MANAGER,item.serializeToGson(gson))
+        Constants.Data.SEND_DOWNLOAD_ITEM_TO_DOWNLOAD_FILE_MANAGER, item.serializeToGson(gson)
+      )
       oneTimeWorkerBuilder.setInputData(dataBuilder.build())
       oneTimeWorkerBuilder.build()
-      val workRequest =  oneTimeWorkerBuilder.build()
+      val workRequest = oneTimeWorkerBuilder.build()
       val id = workRequest.id
       workManager.enqueue(workRequest)
       operationState = workManager.getWorkInfoByIdLiveData(id)
@@ -67,29 +73,32 @@ class FilesViewModel @Inject constructor(
   }
 
   fun updateFilesList(
-    itemString: String,
-    adapterItems: List<FilesResponse>
-  ): List<FilesResponse?> {
+    itemString: String
+  ) {
     val item = itemString.deserializeFromGson(gson)
-    val itemToBeUpdated = adapterItems.find { it.id == item.id }?.copy(
-      id = item.id,
-      type = item.type,
-      url = item.url,
-      name = item.name,
-      isDownloaded = item.isDownloaded,
-      fileUri = item.fileUri,
-      failedCount = item.failedCount
-    )
-    return adapterItems.map {
-      if (it.id == itemToBeUpdated?.id)
-        itemToBeUpdated
-      else
-        it
+    val items = filesList.value
+    items?.let { uiModelList ->
+      uiModelList.find { it.id == item.id }?.let {
+        val newItem = it.copy(
+          id = item.id,
+          type = item.type,
+          url = item.url,
+          name = item.name,
+          isDownloaded = item.isDownloaded,
+          fileUri = item.fileUri,
+          failedCount = item.failedCount
+        )
+        _filesList.value = uiModelList.map { uiItem ->
+          if (uiItem.id == item.id)
+            newItem
+          else
+            uiItem
+        }
+      }
     }
   }
 
   override fun onCleared() {
-    if (!compositeDisposable.isDisposed) compositeDisposable.dispose()
-    super.onCleared()
+    compositeDisposable.dispose()
   }
 }

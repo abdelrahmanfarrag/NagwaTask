@@ -2,8 +2,9 @@ package com.example.nagwatask.presentation.file.fragment.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nagwatask.R
-import com.example.nagwatask.domain.model.FilesResponse
+import com.example.nagwatask.data.model.FilesResponse
 import com.example.nagwatask.databinding.ItemFileBinding
+import com.example.nagwatask.presentation.uimodel.FileUIModel
 import com.example.nagwatask.utility.Constants
 import com.example.nagwatask.utility.extension.invisible
 import com.example.nagwatask.utility.extension.setResourceToImageView
@@ -15,11 +16,11 @@ import com.example.nagwatask.utility.extension.visible
 
 class FilesViewHolder(
   private val view: ItemFileBinding,
-  private var onDownloadClicked: (FilesResponse) -> Unit,
+  private var onDownloadClicked: (FileUIModel) -> Unit,
   private var onViewVideoClicked: (String?) -> Unit
 ) : RecyclerView.ViewHolder(view.root) {
 
-  fun bind(item: FilesResponse) {
+  fun bind(item: FileUIModel) {
     view.fileDownloadImageView.setOnClickListener {
       if (item.failedCount < 3) {
         view.fileDownloadIndicatorTextView.text = itemView.context.getString(R.string.downloading)

@@ -71,21 +71,11 @@ class FilesFragment : Fragment() {
           }
           info.state == WorkInfo.State.FAILED -> {
             fragmentFilesBinding.loadingIndicatorView.gone()
-            filesAdapter.setItems(
-              filesViewModel.updateFilesList(
-                outputData,
-                filesAdapter.differ.currentList
-              )
-            )
+            filesViewModel.updateFilesList(outputData)
           }
           info.state.isFinished -> {
             fragmentFilesBinding.loadingIndicatorView.gone()
-            filesAdapter.setItems(
-              filesViewModel.updateFilesList(
-                outputData,
-                filesAdapter.differ.currentList
-              )
-            )
+            filesViewModel.updateFilesList(outputData)
           }
         }
       })
@@ -93,7 +83,7 @@ class FilesFragment : Fragment() {
   }
 
   private fun updateUI() {
-    filesViewModel.filesLit.observe(viewLifecycleOwner, Observer { filesList ->
+    filesViewModel.filesList.observe(viewLifecycleOwner, Observer { filesList ->
       filesAdapter.setOnClicked { item ->
         filesViewModel.postOperationUpdateToView(item)
         observeWorkManager()

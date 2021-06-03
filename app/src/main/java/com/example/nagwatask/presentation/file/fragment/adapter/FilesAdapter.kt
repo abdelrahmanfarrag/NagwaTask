@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nagwatask.domain.model.FilesResponse
+import com.example.nagwatask.data.model.FilesResponse
 import com.example.nagwatask.databinding.ItemFileBinding
+import com.example.nagwatask.presentation.uimodel.FileUIModel
 import javax.inject.Inject
 
 /**
@@ -15,18 +16,18 @@ import javax.inject.Inject
 class FilesAdapter @Inject constructor() :
   RecyclerView.Adapter<FilesViewHolder>() {
 
-  private lateinit var onDownloadClicked: (FilesResponse) -> Unit
+  private lateinit var onDownloadClicked: (FileUIModel) -> Unit
   private lateinit var onViewVideoClicked: (String?) -> Unit
-  private val diffCallback = object : DiffUtil.ItemCallback<FilesResponse>() {
-    override fun areItemsTheSame(oldItem: FilesResponse, newItem: FilesResponse): Boolean {
+  private val diffCallback = object : DiffUtil.ItemCallback<FileUIModel>() {
+    override fun areItemsTheSame(oldItem: FileUIModel, newItem: FileUIModel): Boolean {
       return oldItem.hashCode() == newItem.hashCode()
     }
 
-    override fun areContentsTheSame(oldItem: FilesResponse, newItem: FilesResponse): Boolean {
+    override fun areContentsTheSame(oldItem: FileUIModel, newItem: FileUIModel): Boolean {
       return oldItem == newItem
     }
   }
-   val differ = AsyncListDiffer(this, diffCallback)
+  private val differ = AsyncListDiffer(this, diffCallback)
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilesViewHolder {
     val binding = ItemFileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -39,7 +40,7 @@ class FilesAdapter @Inject constructor() :
     holder.bind(differ.currentList[position])
   }
 
-  fun setOnClicked(onDownloadClicked: (FilesResponse) -> Unit) {
+  fun setOnClicked(onDownloadClicked: (FileUIModel) -> Unit) {
     this.onDownloadClicked = onDownloadClicked
   }
 
@@ -47,8 +48,7 @@ class FilesAdapter @Inject constructor() :
     this.onViewVideoClicked = onViewVideoClick
   }
 
-
-  fun setItems(filesList: List<FilesResponse?>) {
+  fun setItems(filesList: List<FileUIModel?>) {
     differ.submitList(filesList)
   }
 }

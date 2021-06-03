@@ -6,7 +6,9 @@ import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
-import com.example.nagwatask.domain.model.FilesResponse
+import com.example.nagwatask.data.model.FilesResponse
+import com.example.nagwatask.domain.entity.FileEntity
+import com.example.nagwatask.presentation.uimodel.FileUIModel
 import com.example.nagwatask.utility.Constants.Data.PROGRESS
 import com.example.nagwatask.utility.Constants.Data.SEND_DOWNLOAD_ITEM_TO_DOWNLOAD_FILE_MANAGER
 import com.example.nagwatask.utility.Constants.Data.SEND_RESULTED_ITEM_VIEW_TO_UPDATE
@@ -31,7 +33,7 @@ class DownloadFileWorkManager(
   workParams: WorkerParameters
 ) : CoroutineWorker(context, workParams) {
 
-  private lateinit var item: FilesResponse
+  private lateinit var item: FileUIModel
 
   override suspend fun doWork(): Result {
     val firstUpdate = workDataOf(PROGRESS to 0)

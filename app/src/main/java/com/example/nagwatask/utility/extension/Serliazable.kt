@@ -1,12 +1,14 @@
 package com.example.nagwatask.utility.extension
 
-import com.example.nagwatask.domain.model.FilesResponse
+import com.example.nagwatask.data.model.FilesResponse
+import com.example.nagwatask.presentation.uimodel.FileUIModel
 import com.google.gson.Gson
 
 /**
  * Authored by Abdelrahman Ahmed on 01 Jun, 2021.
  */
-fun FilesResponse.serializeToGson(gson: Gson): String = gson.toJson(this)
+fun<T> T.serializeToGson(gson: Gson): String = gson.toJson(this)
 
-fun String.deserializeFromGson(gson: Gson): FilesResponse =
-  gson.fromJson(this, FilesResponse::class.java)
+fun String.deserializeFromGson(gson: Gson): FileUIModel =
+  gson.fromJson(this, FileUIModel::class.java)
+
