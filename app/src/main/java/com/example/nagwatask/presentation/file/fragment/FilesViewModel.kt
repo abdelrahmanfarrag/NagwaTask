@@ -8,10 +8,9 @@ import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
-import com.example.nagwatask.data.model.FilesResponse
 import com.example.nagwatask.domain.usecase.FilesUseCase
-import com.example.nagwatask.presentation.uimodel.FileUIModel
-import com.example.nagwatask.presentation.uimodel.toUIModel
+import com.example.nagwatask.presentation.file.uimodel.FileUIModel
+import com.example.nagwatask.presentation.file.uimodel.toUIModel
 import com.example.nagwatask.utility.Constants
 import com.example.nagwatask.utility.DownloadFileWorkManager
 import com.example.nagwatask.utility.extension.deserializeFromGson

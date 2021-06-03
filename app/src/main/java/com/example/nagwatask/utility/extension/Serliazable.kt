@@ -1,7 +1,6 @@
 package com.example.nagwatask.utility.extension
 
-import com.example.nagwatask.data.model.FilesResponse
-import com.example.nagwatask.presentation.uimodel.FileUIModel
+import com.example.nagwatask.presentation.file.uimodel.FileUIModel
 import com.google.gson.Gson
 
 /**

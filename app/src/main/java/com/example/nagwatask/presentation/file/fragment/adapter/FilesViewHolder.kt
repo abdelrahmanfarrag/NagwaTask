@@ -2,9 +2,8 @@ package com.example.nagwatask.presentation.file.fragment.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nagwatask.R
-import com.example.nagwatask.data.model.FilesResponse
 import com.example.nagwatask.databinding.ItemFileBinding
-import com.example.nagwatask.presentation.uimodel.FileUIModel
+import com.example.nagwatask.presentation.file.uimodel.FileUIModel
 import com.example.nagwatask.utility.Constants
 import com.example.nagwatask.utility.extension.invisible
 import com.example.nagwatask.utility.extension.setResourceToImageView

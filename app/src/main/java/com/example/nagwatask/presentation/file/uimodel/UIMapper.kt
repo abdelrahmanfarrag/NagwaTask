@@ -1,4 +1,4 @@
-package com.example.nagwatask.presentation.uimodel
+package com.example.nagwatask.presentation.file.uimodel
 
 import com.example.nagwatask.domain.entity.FileEntity
 
